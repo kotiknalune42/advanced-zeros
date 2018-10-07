@@ -1,17 +1,28 @@
-module.exports = function getZerosCount(number, base) {
-    let baseArray = [], 
-        minNum = 2, 
-        zeroes = 0;
-    while (minNum <= base) { 
-        if (base % minNum === 0) {
-            baseArray = base;
-            base = Math.round(base / minNum);
-        } else {
-            minNum++}
+module.exports =function gettrailingZeros(number, base) {
+  let initBase = base, trailingZeros = number;
+
+  for (let i = 2; i <= initBase; i++){
+
+    if (initBase % i == 0){
+      let count = 0;
+
+      while (initBase % i == 0){
+        count++;
+        initBase = Math.floor(initBase / i);
+      }
+
+      let tempNumber = number;
+      let power = 0;
+
+      while (tempNumber / i  > 0){ 
+
+        tempNumber = Math.floor(tempNumber / i);
+        power += tempNumber;
+      }
+      
+      trailingZeros = Math.min(trailingZeros, Math.floor(power / count));
     }
-    for (let i = 1; i < 12; i++) { 
-        let numbers;
-        numbers = Math.floor(number / Math.pow(baseArray, i));
-        zeroes += numbers;} 
-return zeroes;
+  }
+  return trailingZeros;
 }
+
